@@ -1,0 +1,33 @@
+Files you should have before CNV analysis 
+
+1.We assume that you have .bam files.  
+2.targeted .bed file provided by the manufacturer  
+3. Files for hg38 have to be prepared by yourself (hg38.fa) 
+Important: don't mix samples sequenced with different enrichment kits - coverage patterns are different 
+4. on-target read coverage (has to be supported by on-target .bed file, annotated with GC content - procedure for annotation will be described below) 
+5. text files with comma separated sample IDs where each line contains IDs of mother, father, kid (order is important) for trio framework. 
+Note: sample names should be the same as in your coverage file (the column names). 
+
+#use absolute path
+
+Generation of .bed files (on-target) 
+
+.bed file annotation 
+
+#ngsbits has to be installed (see github pages-use conda to create and activate the env). GC-annotation is mandatory. Annotation with genes is optional. 
+#activate the env 
+
+$ conda activate ngsbits
+
+#check their command 
+
+#/home/users/hamidahghani20/.conda/envs/ngsbits/bin/BedAnnotateGC --help 
+
+/home/users/hamidahghani20/.conda/envs/ngsbits/bin/BedAnnotateGC -in $bedFile -out "gcAnnotated."$bedFile -ref reference.fa 
+
+$ /home/users/hamidahghani20/.conda/envs/ngsbits/bin/BedAnnotateGC -in /home/data/lighthouse/ClinCNV/lighthouse_cohorts/cegat_LH/Twist.bed -out /home/data/lighthouse/ClinCNV/lighthouse_cohorts/cegat_LH/cegat_twist_gcAnnotated.bed -ref /home/data/lighthouse/suppfiles/hg38_v0_Homo_sapiens_assembly38.fasta 
+
+#GC should be in you 4th col, remove unnecessary cols if any 
+
+#Optionally, your .bed file may be annotated with genes, intersecting with target region
+#off-target not recommended for WES
